@@ -1,3 +1,5 @@
+import GithubLogin from "components/login-buttons/GithubLogin";
+import GoogleLogin from "components/login-buttons/GoogleLogin";
 import React from "react";
 
 // reactstrap components
@@ -27,34 +29,8 @@ function LoginCard1() {
             <small>Login with</small>
           </div>
           <div className="btn-wrapper text-center">
-            <Button
-              className="btn-neutral btn-icon"
-              color="default"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              <span className="btn-inner--icon">
-                <img
-                  alt="..."
-                  src={require("assets/img/icons/common/github.svg")}
-                ></img>
-              </span>
-              <span className="btn-inner--text">Github</span>
-            </Button>
-            <Button
-              className="btn-neutral btn-icon"
-              color="default"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              <span className="btn-inner--icon">
-                <img
-                  alt="..."
-                  src={require("assets/img/icons/common/google.svg")}
-                ></img>
-              </span>
-              <span className="btn-inner--text">Google</span>
-            </Button>
+            <GithubLogin />
+            <GoogleLogin />
           </div>
         </CardHeader>
         <CardBody className="px-lg-5 py-lg-5">

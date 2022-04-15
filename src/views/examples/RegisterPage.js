@@ -1,4 +1,5 @@
 import React from "react";
+import FbLogin from "components/login-buttons/FbLogin";
 
 // reactstrap components
 import {
@@ -15,6 +16,7 @@ import {
 // Core Components
 import DemoNavbar from "components/navbars/DemoNavbar.js";
 import DemoFooter from "components/footers/DemoFooter.js";
+import InstaLogin from "components/login-buttons/InstaLogin";
 
 function RegisterPage() {
   const [activeContainer, setActiveContainer] = React.useState("");
@@ -48,16 +50,8 @@ function RegisterPage() {
               <Form>
                 <h2>Create Account</h2>
                 <div className="social-container">
-                  <Button color="facebook" size="sm" type="button">
-                    <span className="btn-inner--icon">
-                      <i className="fab fa-facebook"></i>
-                    </span>
-                  </Button>
-                  <Button color="instagram" size="sm" type="button">
-                    <span className="btn-inner--icon">
-                      <i className="fab fa-instagram"></i>
-                    </span>
-                  </Button>
+                  <FbLogin />
+                  <InstaLogin />
                   <Button color="twitter" size="sm" type="button">
                     <span className="btn-inner--icon">
                       <i className="fab fa-twitter"></i>
