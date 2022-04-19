@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FbLogin from "components/login-buttons/FbLogin";
 
 // reactstrap components
@@ -17,6 +17,8 @@ import {
 import DemoNavbar from "components/navbars/DemoNavbar.js";
 import DemoFooter from "components/footers/DemoFooter.js";
 import InstaLogin from "components/login-buttons/InstaLogin";
+import LinkedInLogin from "components/login-buttons/LinkedInLogin";
+import axios from "axios";
 
 function RegisterPage() {
   const [activeContainer, setActiveContainer] = React.useState("");
@@ -25,6 +27,10 @@ function RegisterPage() {
   const [signupPasswordFocus, setSignupPasswordFocus] = React.useState("");
   const [signinEmailFocus, setSigninEmailFocus] = React.useState("");
   const [signinPasswordFocus, setSigninPasswordFocus] = React.useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   React.useEffect(() => {
     document.body.classList.add("register-page");
     window.scrollTo(0, 0);
@@ -33,6 +39,15 @@ function RegisterPage() {
       document.body.classList.remove("register-page");
     };
   }, []);
+
+  const signUpHandler = (e) => {
+    e.preventDefault();
+    let data = { name, email, password };
+    console.log(data);
+    let res = axios.post("http://localhost:5000/login/register", data);
+    console.log(res.data);
+  };
+
   return (
     <>
       <DemoNavbar type="transparent" />
@@ -47,7 +62,7 @@ function RegisterPage() {
           ></div>
           <Container className={activeContainer}>
             <div className="form-container sign-up-container">
-              <Form>
+              <Form onSubmit={signUpHandler}>
                 <h2>Create Account</h2>
                 <div className="social-container">
                   <FbLogin />
@@ -57,6 +72,7 @@ function RegisterPage() {
                       <i className="fab fa-twitter"></i>
                     </span>
                   </Button>
+                  <LinkedInLogin />
                 </div>
                 <span className="text-default mb-4">
                   or use your email for registration
@@ -73,6 +89,7 @@ function RegisterPage() {
                       type="text"
                       onFocus={() => setSignupNameFocus("focused")}
                       onBlur={() => setSignupNameFocus("")}
+                      onChange={(e) => setName(e.target.value)}
                     ></Input>
                   </InputGroup>
                 </FormGroup>
@@ -88,6 +105,7 @@ function RegisterPage() {
                       type="email"
                       onFocus={() => setSignupEmailFocus("focused")}
                       onBlur={() => setSignupEmailFocus("")}
+                      onChange={(e) => setEmail(e.target.value)}
                     ></Input>
                   </InputGroup>
                 </FormGroup>
@@ -103,10 +121,13 @@ function RegisterPage() {
                       type="password"
                       onFocus={() => setSignupPasswordFocus("focused")}
                       onBlur={() => setSignupPasswordFocus("")}
+                      onChange={(e) => setPassword(e.target.value)}
                     ></Input>
                   </InputGroup>
                 </FormGroup>
-                <Button color="primary">Sign Up</Button>
+                <Button color="primary" type="submit">
+                  Sign Up
+                </Button>
               </Form>
             </div>
             <div className="form-container sign-in-container">
