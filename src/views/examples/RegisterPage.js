@@ -19,6 +19,8 @@ import DemoFooter from "components/footers/DemoFooter.js";
 import InstaLogin from "components/login-buttons/InstaLogin";
 import LinkedInLogin from "components/login-buttons/LinkedInLogin";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import { useHistory } from "react-router-dom";
 
 function RegisterPage() {
   const [activeContainer, setActiveContainer] = React.useState("");
@@ -30,6 +32,10 @@ function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [signInEmail, setSignInEmail] = useState("");
+  const [signInPassword, setSignInPassword] = useState("");
+
+  const history = useHistory();
 
   React.useEffect(() => {
     document.body.classList.add("register-page");
@@ -44,13 +50,39 @@ function RegisterPage() {
     e.preventDefault();
     let data = { name, email, password };
     console.log(data);
-    let res = axios.post("http://localhost:5000/login/register", data);
-    console.log(res.data);
+    axios.post("http://localhost:5000/login/register", data).then((res) => {
+      if (res.data.message) {
+        toast.success(res.data.message);
+        setName("");
+        setEmail("");
+        setPassword("");
+      } else {
+        toast.error(res.data.error);
+      }
+    });
+  };
+
+  const signInHandler = (e) => {
+    e.preventDefault();
+    let data = { email: signInEmail, password: signInPassword };
+    console.log(data);
+    axios.post("http://localhost:5000/login/", data).then((res) => {
+      if (res.data.message) {
+        toast.success(res.data.message);
+        setSignInEmail("");
+        setSignInPassword("");
+        localStorage.setItem("token", res.data.token);
+        history.push("/argon/account-settings", res.data.token);
+      } else {
+        toast.error(res.data.error);
+      }
+    });
   };
 
   return (
     <>
       <DemoNavbar type="transparent" />
+      <ToastContainer />
       <div className="wrapper">
         <div className="page-header bg-default">
           <div
@@ -87,6 +119,7 @@ function RegisterPage() {
                     <Input
                       placeholder="Name"
                       type="text"
+                      value={name}
                       onFocus={() => setSignupNameFocus("focused")}
                       onBlur={() => setSignupNameFocus("")}
                       onChange={(e) => setName(e.target.value)}
@@ -103,6 +136,7 @@ function RegisterPage() {
                     <Input
                       placeholder="Email"
                       type="email"
+                      value={email}
                       onFocus={() => setSignupEmailFocus("focused")}
                       onBlur={() => setSignupEmailFocus("")}
                       onChange={(e) => setEmail(e.target.value)}
@@ -119,6 +153,7 @@ function RegisterPage() {
                     <Input
                       placeholder="Password"
                       type="password"
+                      value={password}
                       onFocus={() => setSignupPasswordFocus("focused")}
                       onBlur={() => setSignupPasswordFocus("")}
                       onChange={(e) => setPassword(e.target.value)}
@@ -131,19 +166,11 @@ function RegisterPage() {
               </Form>
             </div>
             <div className="form-container sign-in-container">
-              <Form action="#" role="form">
+              <Form action="#" role="form" onSubmit={signInHandler}>
                 <h2>Sign in</h2>
                 <div className="social-container">
-                  <Button color="facebook" size="sm" type="button">
-                    <span className="btn-inner--icon">
-                      <i className="fab fa-facebook"></i>
-                    </span>
-                  </Button>
-                  <Button color="instagram" size="sm" type="button">
-                    <span className="btn-inner--icon">
-                      <i className="fab fa-instagram"></i>
-                    </span>
-                  </Button>
+                  <FbLogin />
+                  <InstaLogin />
                   <Button color="twitter" size="sm" type="button">
                     <span className="btn-inner--icon">
                       <i className="fab fa-twitter"></i>
@@ -161,6 +188,8 @@ function RegisterPage() {
                     <Input
                       placeholder="Email"
                       type="email"
+                      value={signInEmail}
+                      onChange={(e) => setSignInEmail(e.target.value)}
                       onFocus={() => setSigninEmailFocus("focused")}
                       onBlur={() => setSigninEmailFocus("")}
                     ></Input>
@@ -176,6 +205,8 @@ function RegisterPage() {
                     <Input
                       placeholder="Password"
                       type="password"
+                      value={signInPassword}
+                      onChange={(e) => setSignInPassword(e.target.value)}
                       onFocus={() => setSigninPasswordFocus("focused")}
                       onBlur={() => setSigninPasswordFocus("")}
                     ></Input>

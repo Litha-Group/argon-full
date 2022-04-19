@@ -6,6 +6,7 @@ import "assets/css/nucleo-svg.css";
 import "assets/css/nucleo-icons.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/scss/argon-design-system.scss?v1.0.0";
+import 'react-toastify/dist/ReactToastify.css';
 
 import Index from "views/Index.js";
 import Sections from "views/Sections.js";
