@@ -20,7 +20,7 @@ import InstaLogin from "components/login-buttons/InstaLogin";
 import LinkedInLogin from "components/login-buttons/LinkedInLogin";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function RegisterPage() {
   const [activeContainer, setActiveContainer] = React.useState("");
@@ -68,11 +68,12 @@ function RegisterPage() {
     console.log(data);
     axios.post("http://localhost:5000/login/", data).then((res) => {
       if (res.data.message) {
+        console.log(res.data);
         toast.success(res.data.message);
         setSignInEmail("");
         setSignInPassword("");
         localStorage.setItem("token", res.data.token);
-        history.push("/argon/account-settings", res.data.token);
+        history.push("/argon/account-settings", res.data.user);
       } else {
         toast.error(res.data.error);
       }
@@ -212,9 +213,7 @@ function RegisterPage() {
                     ></Input>
                   </InputGroup>
                 </FormGroup>
-                <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                  Forgot your password?
-                </a>
+                <Link to="/argon/reset-page">Forgot your password?</Link>
                 <Button className="mt-3" color="primary">
                   Sign In
                 </Button>

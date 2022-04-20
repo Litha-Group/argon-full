@@ -1,6 +1,9 @@
+import axios from "axios";
 import GithubLogin from "components/login-buttons/GithubLogin";
 import GoogleLogin from "components/login-buttons/GoogleLogin";
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 // reactstrap components
 import {
@@ -21,8 +24,30 @@ import {
 function LoginCard1() {
   const [emailFocus, setEmailFocus] = React.useState("");
   const [passwordFocus, setPasswordFocus] = React.useState("");
+  const [signInEmail, setSignInEmail] = useState("");
+  const [signInPassword, setSignInPassword] = useState("");
+
+  const history = useHistory();
+
+  const signInHandler = (e) => {
+    e.preventDefault();
+    let data = { email: signInEmail, password: signInPassword };
+    console.log(data);
+    axios.post("http://localhost:5000/login/", data).then((res) => {
+      if (res.data.message) {
+        toast.success(res.data.message);
+        setSignInEmail("");
+        setSignInPassword("");
+        localStorage.setItem("token", res.data.token);
+        history.push("/argon/account-settings", res.data.token);
+      } else {
+        toast.error(res.data.error);
+      }
+    });
+  };
   return (
     <>
+      <ToastContainer />
       <Card className="bg-secondary shadow border-0">
         <CardHeader className="bg-white pb-5">
           <div className="text-muted text-center mb-3">
@@ -37,7 +62,7 @@ function LoginCard1() {
           <div className="text-center text-muted mb-4">
             <small>Or login with credentials</small>
           </div>
-          <Form role="form">
+          <Form role="form" onSubmit={signInHandler}>
             <FormGroup className={"mb-3 " + emailFocus}>
               <InputGroup className="input-group-alternative">
                 <InputGroupAddon addonType="prepend">
@@ -48,6 +73,8 @@ function LoginCard1() {
                 <Input
                   placeholder="Email"
                   type="email"
+                  value={signInEmail}
+                  onChange={(e) => setSignInEmail(e.target.value)}
                   onFocus={() => setEmailFocus("focused")}
                   onBlur={() => setEmailFocus("")}
                 ></Input>
@@ -63,6 +90,8 @@ function LoginCard1() {
                 <Input
                   placeholder="Password"
                   type="password"
+                  value={signInPassword}
+                  onChange={(e) => setSignInPassword(e.target.value)}
                   onFocus={() => setPasswordFocus("focused")}
                   onBlur={() => setPasswordFocus("")}
                 ></Input>
@@ -82,7 +111,7 @@ function LoginCard1() {
               </label>
             </div>
             <div className="text-center">
-              <Button className="my-4" color="primary" type="button">
+              <Button className="my-4" color="primary" type="submit">
                 Login
               </Button>
             </div>

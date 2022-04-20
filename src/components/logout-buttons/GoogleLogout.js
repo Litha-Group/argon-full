@@ -8,11 +8,11 @@ const GoogleLogout = () => {
   const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
   const onLogoutSuccess = (res) => {
-    localStorage.removeItem("acces_token");
+    localStorage.removeItem("token");
     sessionStorage.removeItem("fbssls_442121237680668");
     console.log("Logged out success");
     alert("Logged out successfully");
-    history.push("/");
+    history.push("/argon/login-page");
   };
   const onFailure = (res) => {
     console.log("Logout Failed", res);

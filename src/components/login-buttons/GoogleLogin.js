@@ -2,10 +2,10 @@ import React from "react";
 import { Button } from "reactstrap";
 import axios from "axios";
 import { useGoogleLogin } from "react-google-login";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 const GoogleLogin = () => {
-  const history = useHistory();
+  // const history = useHistory();
   const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
   const onSuccess = async (res) => {

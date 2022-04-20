@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 // JavaScript plugin that hides or shows a component based on your scroll
@@ -23,32 +23,7 @@ import GoogleLogout from "components/logout-buttons/GoogleLogout";
 
 function DemoNavbar(props) {
   const [collapseOpen, toggleCollapse] = React.useState(false);
-  const [user, setUser] = useState(null);
 
-  // useEffect(() => {
-  //   const getUser = () => {
-  //     fetch("http://localhost:5000/auth/login/success", {
-  //       method: "GET",
-  //       credentials: "include",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //         "Access-Control-Allow-Credentials": true,
-  //       },
-  //     })
-  //       .then((response) => {
-  //         if (response.status === 200) return response.json();
-  //         throw new Error("authentication has been failed!");
-  //       })
-  //       .then((resObject) => {
-  //         setUser(resObject.user);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   };
-  //   getUser();
-  // }, []);
   React.useEffect(() => {
     let headroom = new Headroom(document.getElementById("dark-navbar-main"));
     // initialise
@@ -338,8 +313,7 @@ function DemoNavbar(props) {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-              {/* {user && <GoogleLogout />} */}
-              <GoogleLogout />
+              {localStorage.getItem("token") && <GoogleLogout />}
             </Nav>
           </Collapse>
         </Container>

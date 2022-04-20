@@ -1,14 +1,14 @@
 import React from "react";
 // import FacebookLogin from "react-facebook-login";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+// import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import { Button } from "reactstrap";
 
 const FbLogin = () => {
-  const app_id = process.env.REACT_APP_FACEBOOK_APP_ID;
+  // const app_id = process.env.REACT_APP_FACEBOOK_APP_ID;
 
-  const responseFacebook = (response) => {
-    console.log(response);
-  };
+  // const responseFacebook = (response) => {
+  //   console.log(response);
+  // };
 
   return (
     // <FacebookLogin

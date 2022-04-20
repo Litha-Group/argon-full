@@ -1,11 +1,11 @@
 import React from "react";
 import { Button } from "reactstrap";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import LoginGithub from "react-login-github";
 
 const GithubLogin = () => {
-  const history = useHistory();
+  // const history = useHistory();
   const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
 
   const onSuccess = (response) => {
