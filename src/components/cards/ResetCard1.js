@@ -28,15 +28,16 @@ function ResetCard1() {
 
   const resetHandler = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:5000/reset", { email })
-      .then((res) => {
-        if (res.data.error) {
-          toast.error(res.data.error);
-          return;
-        }
-      })
-      .then(history.push("/argon/create-password"));
+    axios.post("http://localhost:5000/reset", { email }).then((res) => {
+      if (res.data.error) {
+        toast.error(res.data.error);
+        return;
+      } else {
+        toast.success(res.data.message);
+        setEmail("");
+      }
+    });
+    // .then(history.push("/argon/create-password"));
   };
 
   return (

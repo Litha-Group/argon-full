@@ -32,15 +32,20 @@ import ProtectedRoutes from "ProtectedRoutes";
 import NewPassword from "components/cards/NewPassword";
 
 const App = () => {
-  const token = localStorage.getItem("token");
   const [user, setUser] = useState("");
   useEffect(() => {
+    const token = localStorage.getItem("token");
     setUser(token);
-  }, [token]);
+  });
 
   return (
     <BrowserRouter>
       <Switch>
+        <Route
+          path="/argon/create-password/:email/:token"
+          exact
+          render={(props) => <NewPassword {...props} />}
+        />
         <Route
           path="/argon/index"
           exact
@@ -142,11 +147,7 @@ const App = () => {
           exact
           render={(props) => <ResetPage {...props} />}
         />
-        <Route
-          path="/argon/create-password"
-          exact
-          render={(props) => <NewPassword {...props} />}
-        />
+
         <ProtectedRoutes isAuth={user} component={AccountSettings} />
       </Switch>
     </BrowserRouter>

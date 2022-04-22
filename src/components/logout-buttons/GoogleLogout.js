@@ -26,7 +26,6 @@ const GoogleLogout = () => {
     <Button
       className="btn-neutral btn-icon"
       color="default"
-      href="#pablo"
       onClick={signOut}
     >
       <span className="btn-inner--text">Logout</span>
