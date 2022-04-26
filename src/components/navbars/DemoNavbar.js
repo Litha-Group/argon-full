@@ -19,9 +19,11 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import GoogleLogout from "components/logout-buttons/GoogleLogout";
 
 function DemoNavbar(props) {
   const [collapseOpen, toggleCollapse] = React.useState(false);
+
   React.useEffect(() => {
     let headroom = new Headroom(document.getElementById("dark-navbar-main"));
     // initialise
@@ -311,6 +313,7 @@ function DemoNavbar(props) {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
+              {localStorage.getItem("token") && <GoogleLogout />}
             </Nav>
           </Collapse>
         </Container>

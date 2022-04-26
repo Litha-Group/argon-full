@@ -26,8 +26,9 @@ import DemoNavbar from "components/navbars/DemoNavbar.js";
 import DemoFooter from "components/footers/DemoFooter.js";
 import Upload from "components/upload/Upload.js";
 
-function AccountSettings() {
+function AccountSettings(props) {
   const [activeTab, setActiveTab] = React.useState("tab1");
+  const user = props.location.state;
   React.useEffect(() => {
     new Choices("#choices-single-default-1", {
       searchEnabled: false,
@@ -105,7 +106,7 @@ function AccountSettings() {
                       addBtnClasses="btn-sm btn-round mt-3"
                       removeBtnClasses="btn-sm btn-round mt-1"
                     />
-                    <h3 className="title mt-4">Charlie Bailey</h3>
+                    <h3 className="title mt-4">{user ? user[0].name : "Name"}</h3>
                   </section>
                   <section>
                     <br></br>
