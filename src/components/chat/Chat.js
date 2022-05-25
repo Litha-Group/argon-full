@@ -32,7 +32,7 @@ function Chat() {
   return (
     <>
       <Row className="flex-row chat">
-        <Col lg="4">
+        {/* <Col lg="4">
           <Card className="bg-secondary">
             <CardHeader className={"mb-3 " + searchFocus}>
               <InputGroup className="input-group-alternative">
@@ -188,8 +188,8 @@ function Chat() {
               </ListGroupItem>
             </ListGroup>
           </Card>
-        </Col>
-        <Col lg="8">
+        </Col> */}
+        <Col>
           <Card>
             <CardHeader className="d-inline-block">
               <Row>
@@ -278,7 +278,7 @@ function Chat() {
                 </Col>
               </Row>
             </CardHeader>
-            <CardBody>
+            <CardBody style={{maxHeight: "70vh", overflow: "auto", marginTop: "30px", overflowX: "hidden"}}>
               <Row className="justify-content-start">
                 <Col className="col-auto">
                   <Card>
